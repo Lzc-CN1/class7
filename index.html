@@ -7,6 +7,7 @@
   <meta name="description" content="深圳技术大学附属中学2024级七班班级官网 - 青春正好，七班同行" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%232d6a9f'/><text x='50' y='72' font-size='60' font-weight='900' fill='white' text-anchor='middle' font-family='sans-serif'>七</text></svg>" />
   <style>
     /* ========== CSS 变量 ========== */
     :root {
@@ -661,6 +662,7 @@
     </div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">班级介绍</a></li>
+      <li><a href="#motto">班训</a></li>
       <li><a href="#message">班主任寄语</a></li>
       <li><a href="#members">成员风采</a></li>
       <li><a href="#news">班级动态</a></li>
@@ -679,7 +681,7 @@
     <div class="hero-content">
       <div class="hero-badge">深圳技术大学附属中学 · 2024级</div>
       <h1><span class="highlight">青春正好</span><br/>七班同行</h1>
-      <p class="hero-sub">在深技大附中的校园里，我们四十八个人，一起走过高中三年。</p>
+      <p class="hero-sub">四十八个来自不同地方的人，因为一个共同的名字聚在一起——七班。</p>
       <div class="hero-actions">
         <a href="#about" class="btn btn-primary">了解更多</a>
         <a href="#contact" class="btn btn-outline">联系我们</a>
@@ -718,9 +720,32 @@
             </div>
             <div class="stat-item">
               <div class="num">3</div>
-              <div class="label">年级排名</div>
+              <div class="label">学习小组</div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 班训 -->
+  <section id="motto" style="background:#f0f4f8;">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>班训</h2>
+      </div>
+      <div class="motto-row reveal" style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:var(--primary);">真</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">求真</div>
+        </div>
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:var(--accent);">善</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">向善</div>
+        </div>
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:#2e7d32;">美</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">尚美</div>
         </div>
       </div>
     </div>
@@ -767,6 +792,12 @@
         <p class="sub">高考倒计时，我们在路上</p>
       </div>
       <div class="timeline reveal" id="timeline"></div>
+    </div>
+  </section>
+
+  <section style="background:#fff; padding-bottom:40px;">
+    <div class="section-inner" style="text-align:center;">
+      <a href="news.html" style="display:inline-block; background:var(--primary); color:#fff; padding:12px 32px; border-radius:8px; font-size:15px; text-decoration:none; font-weight:600;">查看全部每日新闻（16篇）</a>
     </div>
   </section>
 
@@ -824,12 +855,17 @@
           </button>
         </form>
       </div>
-      <div class="footer-bar">
+      <div class="footer-bar" style="flex-wrap: wrap; gap: 12px;">
         <span>© 2024-2026 深圳技术大学附属中学 2024 级七班</span>
-        <span>
+        <span style="display: flex; gap: 16px; flex-wrap: wrap;">
           <a href="https://github.com" target="_blank">GitHub</a>
+          <a href="https://www.sztu.edu.cn" target="_blank">深圳技术大学</a>
+          <a href="#top">回到顶部</a>
         </span>
       </div>
+      <p style="text-align:center; color:rgba(255,255,255,0.25); font-size:11px; margin-top:12px; padding-bottom:16px;">
+        * 联系方式为示例，请替换为真实信息
+      </p>
     </div>
   </section>
 
@@ -894,8 +930,11 @@
       ];
 
       var newsItems = [
-        { date: '2026-01-25', title: '🎯 高考倒计时500天', desc: '全班同学在教室举行高考倒计时500天启动仪式，每人写下目标卡贴在心愿墙上，扬帆起航。' },
         { date: '2026-05-01', title: '⏳ 距离高考还有402天', desc: '今日距2027年高考仅剩402天。杨老师在班会课上再次强调：不要带手机！全力以赴备战高考！' },
+        { date: '2026-04-15', title: '🏃 春季运动会', desc: '七班同学在运动会上奋力拼搏，斩获年级团体第三名的好成绩！' },
+        { date: '2026-03-20', title: '🎨 艺术节作品展', desc: '班级同学积极参与校园艺术节，多幅作品获得校级奖项。' },
+        { date: '2026-01-25', title: '🎯 高考倒计时500天', desc: '全班同学在教室举行高考倒计时500天启动仪式，每人写下目标卡贴在心愿墙上，扬帆起航。' },
+        { date: '2025-12-10', title: '📚 期末备考动员', desc: '班主任杨老师召开期末备考主题班会，分享高效复习方法，全班进入备考状态。' },
       ];
 
       /* ----- Hero 背景加载 ----- */
