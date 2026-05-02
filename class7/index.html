@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>深技大附中 · 2024级七班</title>
+  <meta name="description" content="深圳技术大学附属中学2024级七班班级官网 - 青春正好，七班同行" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%232d6a9f'/><text x='50' y='72' font-size='60' font-weight='900' fill='white' text-anchor='middle' font-family='sans-serif'>七</text></svg>" />
+  <style>
+    /* ========== CSS 变量 ========== */
+    :root {
+      --primary: #2d6a9f;
+      --primary-light: #4a90c4;
+      --accent: #f5a623;
+      --bg: #f8faff;
+      --text: #2c3e50;
+      --text-light: #7f8c9b;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --font: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* ========== 全局背景纹理 + 装饰 ========== */
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(45, 106, 159, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 90% 70%, rgba(245, 166, 35, 0.02) 0%, transparent 50%),
+        #f8faff;
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    /* 浮动装饰圆形 */
+    .bg-deco {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.08;
+    }
+    .bg-deco.d1 {
+      width: 300px; height: 300px;
+      background: var(--primary);
+      top: -80px; right: -100px;
+    }
+    .bg-deco.d2 {
+      width: 200px; height: 200px;
+      background: var(--accent);
+      bottom: 20%; left: -60px;
+    }
+    .bg-deco.d3 {
+      width: 150px; height: 150px;
+      background: var(--primary-light);
+      bottom: -40px; right: 20%;
+    }
+    /* 所有 section 使用相对定位以在装饰背景之上 */
+    section { position: relative; z-index: 1; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ========== 导航栏 ========== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: padding 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled {
+      padding: 10px 40px;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+    }
+    .navbar-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 18px; color: var(--primary);
+    }
+    .navbar-logo .logo-icon {
+      width: 34px; height: 34px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 15px;
+    }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a {
+      padding: 6px 16px; border-radius: 6px;
+      font-size: 14px; font-weight: 500;
+      color: var(--text-light);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+      background: rgba(45, 106, 159, 0.06);
+    }
+
+    /* ========== 汉堡菜单 ========== */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ========== Hero ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      text-align: center;
+      padding: 160px 20px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: -40px;
+      z-index: 0;
+      background: url('assets/images/class-group-photo.jpg') center center / cover no-repeat;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+    .hero-bg.loaded {
+      animation: hero-zoom 2s ease-out forwards;
+    }
+    @keyframes hero-zoom {
+      from { transform: scale(1.05); }
+      to { transform: scale(1); }
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(180deg,
+          rgba(0,0,0,0.52) 0%,
+          rgba(0,0,0,0.28) 45%,
+          rgba(0,0,0,0.22) 60%,
+          rgba(0,0,0,0.50) 100%
+        );
+    }
+    .hero-content {
+      position: relative; z-index: 3;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 18px; border-radius: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+      margin-bottom: 20px;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.6s 0.3s forwards;
+    }
+    .hero h1 {
+      font-family: 'ZCOOL QingKe HuangYou', cursive;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.6s 0.5s forwards;
+    }
+    .hero h1 .highlight {
+      color: #ffe0a0;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.15);
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.6s 0.7s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.6s 0.9s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 28px; border-radius: 8px;
+      font-weight: 600; font-size: 14px;
+      cursor: pointer; transition: all 0.2s; border: none;
+      font-family: var(--font);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+    .btn-outline {
+      background: transparent; color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    /* 简洁滚动提示 */
+    .scroll-hint {
+      position: absolute; bottom: 36px; z-index: 3;
+      color: rgba(255,255,255,0.5); font-size: 12px;
+      letter-spacing: 1px;
+      opacity: 0;
+      animation: fadeUp 0.6s 1.2s forwards;
+    }
+    .scroll-hint span {
+      display: block; width: 1px; height: 32px;
+      background: rgba(255,255,255,0.3);
+      margin: 10px auto 0;
+      animation: scroll-line 2s infinite;
+    }
+    @keyframes scroll-line {
+      0% { opacity: 1; height: 0; }
+      50% { height: 32px; opacity: 0.6; }
+      100% { opacity: 0; height: 32px; }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== 通用 Section ========== */
+    section { padding: 90px 20px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center; margin-bottom: 50px;
+    }
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-header .sub {
+      color: var(--text-light); margin-top: 8px;
+      font-size: 0.95rem;
+    }
+    /* 标题下划线装饰（简洁） */
+    .section-header h2::after {
+      content: '';
+      display: block;
+      width: 32px; height: 3px;
+      background: var(--primary);
+      margin: 14px auto 0;
+      border-radius: 2px;
+    }
+
+    /* 滚动渐入 */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ========== 关于班级 ========== */
+    #about { background: #fff; position: relative; }
+    #about::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(45, 106, 159, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px; align-items: center;
+    }
+    .about-image { position: relative; }
+    .about-image img {
+      width: 100%; aspect-ratio: 4/3;
+      border-radius: var(--radius);
+      object-fit: cover;
+      display: block;
+    }
+    .about-image .float-badge {
+      position: absolute; bottom: -14px; right: -14px;
+      background: #fff; padding: 14px 20px; border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: baseline; gap: 6px;
+    }
+    .about-image .float-badge .num {
+      font-size: 28px; font-weight: 800; color: var(--primary);
+      line-height: 1;
+    }
+    .about-image .float-badge .label {
+      font-size: 12px; color: var(--text-light);
+    }
+
+    .about-text h3 {
+      font-size: 1.4rem; margin-bottom: 14px; font-weight: 700;
+    }
+    .about-text p {
+      color: var(--text-light); margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .stats-row {
+      display: flex; gap: 20px;
+      margin-top: 24px;
+    }
+    .stat-item {
+      flex: 1; text-align: center; padding: 14px 8px;
+      background: var(--bg); border-radius: 10px;
+    }
+    .stat-item .num {
+      font-size: 22px; font-weight: 800; color: var(--primary);
+    }
+    .stat-item .label {
+      font-size: 12px; color: var(--text-light); margin-top: 2px;
+    }
+
+    /* ========== 班主任寄语 ========== */
+    #message {
+      background: var(--primary);
+      position: relative; overflow: hidden;
+    }
+    #message::before {
+      content: '\201C';
+      position: absolute; top: -30px; left: 30px;
+      font-size: 200px; color: rgba(255,255,255,0.06);
+      font-family: Georgia, serif; line-height: 1;
+    }
+    .message-content {
+      max-width: 700px; margin: 0 auto; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .message-content blockquote {
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+      color: rgba(255,255,255,0.92);
+      line-height: 1.9;
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .message-content blockquote strong {
+      color: #ffe0a0;
+    }
+    .message-author {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .message-author .avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 16px;
+    }
+    .message-author .info .name {
+      color: #fff; font-weight: 600; font-size: 15px;
+    }
+    .message-author .info .role {
+      color: rgba(255,255,255,0.5); font-size: 12px;
+    }
+
+    /* ========== 班级成员 ========== */
+    #members {
+      background:
+        radial-gradient(ellipse at 80% 30%, rgba(45, 106, 159, 0.04) 0%, transparent 60%),
+        var(--bg);
+    }
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+    .member-card {
+      background: #fff; border-radius: 10px;
+      padding: 24px 12px 18px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+      cursor: default;
+    }
+    .member-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .member-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      margin: 0 auto 10px;
+      background: #e8edf2;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 600; color: var(--primary);
+    }
+    .member-card .name {
+      font-weight: 600; font-size: 14px;
+    }
+    .member-card .role-tag {
+      display: inline-block;
+      margin-top: 5px; padding: 2px 10px; border-radius: 4px;
+      font-size: 11px; font-weight: 500;
+    }
+    .role-tag.leader { background: #fff5e0; color: #b8860b; }
+    .role-tag.monitor { background: #e8f0f8; color: var(--primary); }
+    .role-tag.student { background: #f4f5f7; color: var(--text-light); }
+    .role-tag.sports { background: #edf7ed; color: #2e7d32; }
+    .role-tag.rep { background: #f0ecf8; color: #6a4fb8; }
+    .role-tag.hygiene { background: #fef5e7; color: #b8860b; }
+
+    /* ========== 班级动态 ========== */
+    #news {
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(245, 166, 35, 0.03) 0%, transparent 50%),
+        #fff;
+    }
+    .timeline {
+      position: relative; padding-left: 36px;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+      width: 2px; background: #e2e6ea;
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 28px;
+    }
+    .timeline-item .dot {
+      position: absolute; left: -30px; top: 6px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .timeline-item:nth-child(even) .dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .timeline-item .date {
+      font-size: 12px; color: var(--text-light); margin-bottom: 3px;
+      font-weight: 500;
+    }
+    .timeline-item .title {
+      font-weight: 700; font-size: 1rem; margin-bottom: 4px;
+    }
+    .timeline-item .desc {
+      color: var(--text-light); font-size: 0.9rem;
+    }
+
+    /* ========== 班级文化建设 ========== */
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .culture-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid #eef2f7;
+      box-shadow: 0 2px 8px rgba(45, 106, 159, 0.05);
+      transition: all 0.2s ease;
+    }
+    .culture-card:hover {
+      box-shadow: 0 4px 16px rgba(45, 106, 159, 0.1);
+      border-color: #dde4ed;
+    }
+    .culture-card-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #f0f4f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .culture-card-body {
+      flex: 1;
+    }
+    .culture-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: var(--text);
+    }
+    .culture-card p {
+      font-size: 13px;
+      color: var(--text-light);
+      margin: 0 0 10px 0;
+      line-height: 1.5;
+    }
+    .culture-card-count {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .culture-card-arrow {
+      flex-shrink: 0;
+      align-self: center;
+      color: var(--primary-light);
+      font-size: 18px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all 0.2s ease;
+    }
+    .culture-card:hover .culture-card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ========== 班级相册 ========== */
+    #gallery {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(45, 106, 159, 0.03) 0%, transparent 60%),
+        var(--bg);
+    }
+
+    .carousel-wrap {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 44px;
+    }
+    .carousel-viewport {
+      overflow: hidden;
+      padding: 6px 0;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 14px;
+      transition: transform 0.45s ease;
+      will-change: transform;
+    }
+    .carousel-card {
+      flex: 0 0 calc((100% - 14px) / 2);
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 3/2;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+      background: #fff;
+    }
+    .carousel-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .carousel-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .carousel-card .card-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 12px 10px;
+      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+      color: #fff; font-size: 13px; font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .carousel-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%; z-index: 10;
+      transform: translateY(-50%);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+    }
+    .carousel-btn:hover { background: #f0f2f5; }
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
+
+    .carousel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dots .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #d0d5dd;
+      border: none; cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
+    .carousel-dots .dot.active {
+      background: var(--primary);
+      width: 18px;
+      border-radius: 3px;
+    }
+    .carousel-page-num {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* Modal 大图预览 */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 40px;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-overlay .modal-img {
+      max-width: 90%; max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      object-fit: contain;
+      transform: scale(0.95);
+      transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal-img { transform: scale(1); }
+    .modal-overlay .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none; color: #fff; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-overlay .modal-close:hover { background: rgba(255,255,255,0.2); }
+    .modal-overlay .modal-label {
+      position: absolute; bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+
+    /* ========== 联系我们 ========== */
+    #contact {
+      background: #1a3a5c;
+      padding-bottom: 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      color: rgba(255,255,255,0.8);
+    }
+    .contact-info h3 {
+      font-size: 1.3rem; color: #fff; margin-bottom: 16px;
+    }
+    .contact-info p {
+      margin-bottom: 8px; font-size: 0.9rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .contact-info .icon {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .contact-form {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px 16px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #fff; font-size: 14px; font-family: var(--font);
+      transition: border-color 0.2s; outline: none;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--accent);
+    }
+    .contact-form textarea { min-height: 90px; resize: vertical; }
+    .contact-form button { align-self: flex-start; }
+
+    .footer-bar {
+      margin-top: 60px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; justify-content: space-between; align-items: center;
+      color: rgba(255,255,255,0.35); font-size: 12px;
+    }
+    .footer-bar a { color: rgba(255,255,255,0.5); }
+    .footer-bar a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ========== 回到顶部 ========== */
+    .back-to-top {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #fff; border: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.2s;
+      font-size: 16px; color: var(--text);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px); }
+
+    /* ========== 响应式 ========== */
+    @media (max-width: 768px) {
+      .navbar { padding: 12px 20px; }
+      .navbar.scrolled { padding: 8px 20px; }
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: 240px; height: 100vh;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column; padding: 70px 20px 20px; gap: 2px;
+        box-shadow: -2px 0 20px rgba(0,0,0,0.06);
+        transition: right 0.3s;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { padding: 10px 14px; font-size: 15px; }
+      .hamburger { display: flex; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-image .float-badge {
+        bottom: -10px; right: 50%; transform: translateX(50%);
+      }
+      .members-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bar { flex-direction: column; gap: 6px; text-align: center; }
+      section { padding: 60px 16px; }
+      .section-header { margin-bottom: 36px; }
+      .stats-row { gap: 12px; }
+      .stat-item { padding: 10px 6px; }
+      .stat-item .num { font-size: 18px; }
+      .carousel-wrap { padding: 0 36px; }
+    }
+    @media (max-width: 640px) {
+      .carousel-card { flex: 0 0 100%; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+      .members-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 背景装饰 -->
+  <div class="bg-deco d1"></div>
+  <div class="bg-deco d2"></div>
+  <div class="bg-deco d3"></div>
+
+  <!-- 导航栏 -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-logo">
+      <div class="logo-icon">7</div>
+      <span>2024级七班</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">班级介绍</a></li>
+      <li><a href="#motto">班训</a></li>
+      <li><a href="#message">班主任寄语</a></li>
+      <li><a href="#members">成员风采</a></li>
+    <li><a href="#news">班级动态</a></li>
+    <li><a href="#culture">班级文化建设</a></li>
+    <li><a href="#gallery">班级相册</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">深圳技术大学附属中学 · 2024级</div>
+      <h1><span class="highlight">青春正好</span><br/>七班同行</h1>
+      <p class="hero-sub">四十八个来自不同地方的人，因为一个共同的名字聚在一起——七班。</p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary">了解更多</a>
+        <a href="#contact" class="btn btn-outline">联系我们</a>
+      </div>
+    </div>
+    <div class="scroll-hint">向下滑动<span></span></div>
+  </section>
+
+  <!-- 关于班级 -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>关于我们</h2>
+        <p class="sub">团结、奋进、温暖——这就是七班</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="assets/images/about-class.jpg" alt="班级合影" />
+          <div class="float-badge">
+            <div class="num">48</div>
+            <div class="label">个人<br/>一个班</div>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <h3>深技大附中 2024 级七班</h3>
+          <p>我们是深圳技术大学附属中学 2024 级七班，一个由 48 名同学组成的温暖大家庭。在班主任杨老师的带领下，我们秉持"求真、向善、尚美"的班训，在学习和生活中共同进步。</p>
+          <p>课堂上我们专注求知，运动场上我们挥洒汗水，艺术节上我们绽放才华。这里是梦想起航的地方，也是青春最美好的模样。</p>
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="num">48</div>
+              <div class="label">班级人数</div>
+            </div>
+            <div class="stat-item">
+              <div class="num">12</div>
+              <div class="label">学科老师</div>
+            </div>
+            <div class="stat-item">
+              <div class="num">3</div>
+              <div class="label">学习小组</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 班训 -->
+  <section id="motto" style="background: linear-gradient(135deg, #f0f4f8 0%, #edf2f7 100%);">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>班训</h2>
+      </div>
+      <div class="motto-row reveal" style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:var(--primary);">真</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">求真</div>
+        </div>
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:var(--accent);">善</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">向善</div>
+        </div>
+        <div style="background:#fff; border-radius:10px; padding:28px 36px; text-align:center; min-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:28px; font-weight:800; color:#2e7d32;">美</div>
+          <div style="font-size:12px; color:var(--text-light); margin-top:4px;">尚美</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 班主任寄语 -->
+  <section id="message">
+    <div class="section-inner">
+      <div class="message-content reveal">
+        <blockquote>
+          "七班的每一个孩子都是一颗独特的星星，有的耀眼夺目，有的温柔闪烁。<br/>
+          但无论以何种方式发光，你们都是我心中最骄傲的存在。<br/>
+          愿你们在深技大附中的三年里，学会知识，更学会做人；<br/>
+          收获友谊，更收获成长。<br/><br/>
+          <strong>不要带手机！不要带手机！不要带手机！</strong>"
+        </blockquote>
+        <div class="message-author">
+          <div class="avatar">杨</div>
+          <div class="info">
+            <div class="name">杨老师</div>
+            <div class="role">2024级七班 · 班主任</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 班级成员 -->
+  <section id="members">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>成员风采</h2>
+        <p class="sub">每一个人都是七班的重要组成部分</p>
+      </div>
+      <div class="members-grid" id="membersGrid"></div>
+    </div>
+  </section>
+
+  <!-- 班级动态 -->
+  <section id="news">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>班级动态</h2>
+        <p class="sub">高考倒计时，我们在路上</p>
+      </div>
+      <div class="timeline reveal" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- 班级文化建设 -->
+  <section id="culture" style="background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%); padding: 60px 20px;">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>班级文化建设</h2>
+        <p class="sub">记录我们的成长轨迹</p>
+      </div>
+      <div class="culture-grid reveal">
+        <a href="news.html" class="culture-card">
+          <div class="culture-card-icon">📰</div>
+          <h3>每日新闻</h3>
+          <p>七班同学精心整理的每日时事热点</p>
+          <span class="culture-card-count">共 16 篇</span>
+          <span class="culture-card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 班级相册 -->
+  <section id="gallery">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>班级相册</h2>
+        <p class="sub">点击照片查看大图</p>
+      </div>
+      <div class="carousel-wrap reveal" id="carouselWrap">
+        <button class="carousel-btn prev" id="carouselPrev" aria-label="上一张">‹</button>
+        <button class="carousel-btn next" id="carouselNext" aria-label="下一张">›</button>
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carouselTrack"></div>
+        </div>
+        <div class="carousel-footer">
+          <div class="carousel-dots" id="carouselDots"></div>
+          <span class="carousel-page-num" id="carouselPageNum"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 图片预览 Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <button class="modal-close" id="modalClose">✕</button>
+    <img class="modal-img" id="modalImg" src="" alt="" />
+    <div class="modal-label" id="modalLabel"></div>
+  </div>
+
+  <!-- 联系我们 -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2 style="color: #fff;">联系我们</h2>
+        <p class="sub" style="color: rgba(255,255,255,0.45);">欢迎老师、家长与我们取得联系</p>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <h3>联系方式</h3>
+          <p><span class="icon">📍</span> 深圳市坪山区 · 深圳技术大学附属中学</p>
+          <p><span class="icon">📧</span> class7-2024@sztu.edu.cn</p>
+          <p><span class="icon">📞</span> 0755-8888-6666</p>
+          <p style="margin-top: 20px; color: rgba(255,255,255,0.4); font-size: 13px;">
+            班主任办公室：教学楼 A 栋 3 楼 · 七班教室
+          </p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <input type="text" placeholder="您的姓名" required />
+          <input type="email" placeholder="邮箱地址" required />
+          <textarea placeholder="留言内容..." required></textarea>
+          <button type="submit" class="btn btn-primary" style="background: var(--accent); color: #2c3e50;">
+            发送留言
+          </button>
+        </form>
+      </div>
+      <div class="footer-bar" style="flex-wrap: wrap; gap: 12px;">
+        <span>© 2024-2026 深圳技术大学附属中学 2024 级七班</span>
+        <span style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="https://github.com" target="_blank">GitHub</a>
+          <a href="https://www.sztu.edu.cn" target="_blank">深圳技术大学</a>
+          <a href="#top">回到顶部</a>
+        </span>
+      </div>
+      <p style="text-align:center; color:rgba(255,255,255,0.25); font-size:11px; margin-top:12px; padding-bottom:16px;">
+        * 联系方式为示例，请替换为真实信息
+      </p>
+    </div>
+  </section>
+
+  <!-- 回到顶部 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
+
+  <!-- JavaScript -->
+  <script>
+    (function() {
+      'use strict';
+
+      /* ----- 数据 ----- */
+      var members = [
+        { name: '安思成', role: '同学', roleClass: 'student' },
+        { name: '蔡浚彬', role: '同学', roleClass: 'student' },
+        { name: '陈东酿', role: '同学', roleClass: 'student' },
+        { name: '陈俊燊', role: '同学', roleClass: 'student' },
+        { name: '陈曦', role: '地理课代表', roleClass: 'rep' },
+        { name: '陈贞贞', role: '同学', roleClass: 'student' },
+        { name: '丁静云', role: '同学', roleClass: 'student' },
+        { name: '胡馨媛', role: '同学', roleClass: 'student' },
+        { name: '黄思婷', role: '同学', roleClass: 'student' },
+        { name: '黄子涵', role: '卫生委员', roleClass: 'hygiene' },
+        { name: '黄子谦', role: '同学', roleClass: 'student' },
+        { name: '黄跃', role: '同学', roleClass: 'student' },
+        { name: '李紫彤', role: '同学', roleClass: 'student' },
+        { name: '李宇桐', role: '同学', roleClass: 'student' },
+        { name: '利卓航', role: '同学', roleClass: 'student' },
+        { name: '廖婉如', role: '同学', roleClass: 'student' },
+        { name: '林裕杰', role: '同学', roleClass: 'student' },
+        { name: '刘智超', role: '同学', roleClass: 'student' },
+        { name: '吕佳颖', role: '同学', roleClass: 'student' },
+        { name: '罗曹锐', role: '同学', roleClass: 'student' },
+        { name: '罗健坤', role: '同学', roleClass: 'student' },
+        { name: '麦依绮', role: '物理/化学课代表', roleClass: 'rep' },
+        { name: '宋同航', role: '体育委员', roleClass: 'sports' },
+        { name: '宋欣祺', role: '同学', roleClass: 'student' },
+        { name: '唐近宸', role: '同学', roleClass: 'student' },
+        { name: '唐煦然', role: '英语课代表', roleClass: 'rep' },
+        { name: '王佳音', role: '英语课代表', roleClass: 'rep' },
+        { name: '王可', role: '同学', roleClass: 'student' },
+        { name: '王可嘉', role: '同学', roleClass: 'student' },
+        { name: '王唯逸', role: '同学', roleClass: 'student' },
+        { name: '吴宝珠', role: '同学', roleClass: 'student' },
+        { name: '席得森', role: '同学', roleClass: 'student' },
+        { name: '徐炜淞', role: '物理课代表', roleClass: 'rep' },
+        { name: '徐梓铭', role: '同学', roleClass: 'student' },
+        { name: '许颖', role: '副班长', roleClass: 'monitor' },
+        { name: '杨晨曦', role: '日语课代表', roleClass: 'rep' },
+        { name: '叶涛荣', role: '同学', roleClass: 'student' },
+        { name: '叶子若', role: '同学', roleClass: 'student' },
+        { name: '曾邹钒', role: '同学', roleClass: 'student' },
+        { name: '张皓轩', role: '同学', roleClass: 'student' },
+        { name: '张莉萱', role: '班长', roleClass: 'monitor' },
+        { name: '钟标城', role: '同学', roleClass: 'student' },
+        { name: '周宝儿', role: '同学', roleClass: 'student' },
+        { name: '周子涵', role: '同学', roleClass: 'student' },
+        { name: '周子棋', role: '同学', roleClass: 'student' },
+        { name: '周子茜', role: '数学课代表', roleClass: 'rep' },
+        { name: '庄欣怡', role: '化学课代表', roleClass: 'rep' },
+        { name: '左欣怡', role: '同学', roleClass: 'student' },
+      ];
+
+      var newsItems = [
+        { date: '2026-05-01', title: '⏳ 距离高考还有402天', desc: '今日距2027年高考仅剩402天。杨老师在班会课上再次强调：不要带手机！全力以赴备战高考！' },
+        { date: '2026-04-15', title: '🏃 春季运动会', desc: '七班同学在运动会上奋力拼搏，斩获年级团体第三名的好成绩！' },
+        { date: '2026-03-20', title: '🎨 艺术节作品展', desc: '班级同学积极参与校园艺术节，多幅作品获得校级奖项。' },
+        { date: '2026-01-25', title: '🎯 高考倒计时500天', desc: '全班同学在教室举行高考倒计时500天启动仪式，每人写下目标卡贴在心愿墙上，扬帆起航。' },
+        { date: '2025-12-10', title: '📚 期末备考动员', desc: '班主任杨老师召开期末备考主题班会，分享高效复习方法，全班进入备考状态。' },
+      ];
+
+      /* ----- Hero 背景加载 ----- */
+      (function() {
+        var bg = document.getElementById('heroBg');
+        var style = getComputedStyle(bg);
+        var bgUrl = style.backgroundImage;
+        if (bgUrl && bgUrl !== 'none') {
+          var m = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
+          if (m) {
+            var img = new Image();
+            img.onload = function() { bg.classList.add('loaded'); };
+            img.onerror = function() { bg.classList.add('loaded'); };
+            img.src = m[1];
+            return;
+          }
+        }
+        setTimeout(function() { bg.classList.add('loaded'); }, 200);
+      })();
+
+      /* ----- 轮播相册 ----- */
+      var carouselPhotos = [
+        { file: 'mmexport1777562876784.jpg', label: '运动会风采' },
+        { file: 'mmexport1777562878195.jpg', label: '课堂瞬间' },
+        { file: 'mmexport1777562879399.jpg', label: '班级活动' },
+        { file: 'mmexport1777562880307.jpg', label: '校园一角' },
+        { file: 'mmexport1777562881263.jpg', label: '文艺汇演' },
+        { file: 'mmexport1777562882245.jpg', label: '志愿服务' },
+        { file: 'mmexport1777562883179.jpg', label: '团队拓展' },
+        { file: 'mmexport1777562891749.jpg', label: '我们的合影' },
+      ];
+
+      (function() {
+        var VISIBLE = 2;
+        var total = carouselPhotos.length;
+        var maxIndex = Math.max(total - VISIBLE, 0);
+        var current = 0;
+        var autoTimer = null;
+
+        var track = document.getElementById('carouselTrack');
+        var dots = document.getElementById('carouselDots');
+        var pageNum = document.getElementById('carouselPageNum');
+        var prevBtn = document.getElementById('carouselPrev');
+        var nextBtn = document.getElementById('carouselNext');
+
+        var modalOverlay = document.getElementById('modalOverlay');
+        var modalImg = document.getElementById('modalImg');
+        var modalLabel = document.getElementById('modalLabel');
+        var modalClose = document.getElementById('modalClose');
+
+        carouselPhotos.forEach(function(photo, i) {
+          var card = document.createElement('div');
+          card.className = 'carousel-card';
+          card.innerHTML =
+            '<img src="assets/images/' + photo.file + '" alt="' + photo.label + '" loading="' + (i < 6 ? 'eager' : 'lazy') + '" />' +
+            '<div class="card-overlay">' + photo.label + '</div>';
+          card.addEventListener('click', function() {
+            modalImg.src = 'assets/images/' + photo.file;
+            modalImg.alt = photo.label;
+            modalLabel.textContent = photo.label + ' (' + (i + 1) + '/' + total + ')';
+            modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          });
+          track.appendChild(card);
+        });
+
+        function getStep() {
+          var first = track.querySelector('.carousel-card');
+          if (!first) return 0;
+          var style = getComputedStyle(track);
+          var gap = parseFloat(style.gap) || 14;
+          return first.offsetWidth + gap;
+        }
+
+        function goTo(index) {
+          if (index < 0) index = 0;
+          if (index > maxIndex) index = maxIndex;
+          current = index;
+          track.style.transform = 'translateX(-' + (current * getStep()) + 'px)';
+          updateDots();
+          updatePageNum();
+        }
+
+        for (var d = 0; d < total; d++) {
+          var dot = document.createElement('button');
+          dot.className = 'dot' + (d === 0 ? ' active' : '');
+          dot.setAttribute('data-idx', d);
+          dot.addEventListener('click', function() { goTo(parseInt(this.getAttribute('data-idx'))); });
+          dots.appendChild(dot);
+        }
+
+        function updateDots() {
+          var allDots = dots.querySelectorAll('.dot');
+          allDots.forEach(function(d, i) {
+            d.classList.toggle('active', i === Math.min(current, total - 1));
+          });
+        }
+
+        function updatePageNum() {
+          pageNum.textContent = (current + 1) + ' / ' + (maxIndex + 1);
+        }
+
+        prevBtn.addEventListener('click', function() { goTo(current - 1); resetAuto(); });
+        nextBtn.addEventListener('click', function() { goTo(current + 1); resetAuto(); });
+
+        function startAuto() {
+          stopAuto();
+          autoTimer = setInterval(function() {
+            goTo(current >= maxIndex ? 0 : current + 1);
+          }, 4000);
+        }
+        function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+        function resetAuto() { stopAuto(); startAuto(); }
+
+        document.addEventListener('keydown', function(e) {
+          var r = document.getElementById('carouselWrap').getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) {
+            if (e.key === 'ArrowLeft') { goTo(current - 1); resetAuto(); }
+            if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
+          }
+        });
+
+        var touchX = 0;
+        document.getElementById('carouselWrap').addEventListener('touchstart', function(e) {
+          touchX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.getElementById('carouselWrap').addEventListener('touchend', function(e) {
+          var diff = touchX - e.changedTouches[0].screenX;
+          if (Math.abs(diff) > 50) {
+            goTo(diff > 0 ? current + 1 : current - 1);
+            resetAuto();
+          }
+        }, { passive: true });
+
+        document.getElementById('carouselWrap').addEventListener('mouseenter', stopAuto);
+        document.getElementById('carouselWrap').addEventListener('mouseleave', startAuto);
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+        });
+        function closeModal() {
+          modalOverlay.classList.remove('open');
+          document.body.style.overflow = '';
+          modalImg.src = '';
+        }
+
+        window.addEventListener('resize', function() {
+          track.style.transform = 'translateX(-' + (current * getStep()) + 'px)';
+        });
+
+        startAuto();
+      })();
+
+      /* ----- 渲染成员卡片 ----- */
+      var grid = document.getElementById('membersGrid');
+      members.forEach(function(m) {
+        var card = document.createElement('div');
+        card.className = 'member-card';
+        var initial = m.name.charAt(0);
+        card.innerHTML =
+          '<div class="member-avatar">' + initial + '</div>' +
+          '<div class="name">' + m.name + '</div>' +
+          '<span class="role-tag ' + m.roleClass + '">' + m.role + '</span>';
+        grid.appendChild(card);
+      });
+
+      /* ----- 渲染时间线 ----- */
+      var timeline = document.getElementById('timeline');
+      newsItems.forEach(function(item) {
+        var el = document.createElement('div');
+        el.className = 'timeline-item';
+        el.innerHTML =
+          '<div class="dot"></div>' +
+          '<div class="date">' + item.date + '</div>' +
+          '<div class="title">' + item.title + '</div>' +
+          '<div class="desc">' + item.desc + '</div>';
+        timeline.appendChild(el);
+      });
+
+      /* ----- 导航栏 + 视差 ----- */
+      var navbar = document.getElementById('navbar');
+      var backToTop = document.getElementById('backToTop');
+      var heroBg = document.getElementById('heroBg');
+
+      window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY;
+        if (scrollY > 60) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        if (scrollY > 500) backToTop.classList.add('visible');
+        else backToTop.classList.remove('visible');
+
+        var hero = document.getElementById('hero');
+        var heroRect = hero.getBoundingClientRect();
+        if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+          heroBg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+        }
+      });
+
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ----- 汉堡菜单 ----- */
+      var hamburger = document.getElementById('hamburger');
+      var navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      /* ----- 滚动渐入 ----- */
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+      /* ----- 联系表单 ----- */
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = this.querySelector('button');
+        var orig = btn.textContent;
+        btn.textContent = '已发送 ✓';
+        btn.disabled = true;
+        setTimeout(function() {
+          btn.textContent = orig;
+          btn.disabled = false;
+          e.target.reset();
+        }, 2000);
+      });
+
+      /* ----- 平滑锚点 ----- */
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
