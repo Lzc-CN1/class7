@@ -891,6 +891,23 @@
     </div>
   </section>
 
+  <!-- 高考倒计时 -->
+  <section id="countdown" style="background: #fff; padding: 40px 20px;">
+    <div class="section-inner">
+      <div class="countdown-box reveal" style="text-align:center; background:linear-gradient(135deg, #2d6a9f 0%, #1a4a75 100%); border-radius:14px; padding:36px 40px; color:#fff; box-shadow:0 6px 24px rgba(45,106,159,0.18);">
+        <p style="font-size:15px; opacity:0.8; margin:0 0 12px; letter-spacing:1px;">距离 2027 年全国高考</p>
+        <div style="display:flex; align-items:center; justify-content:center; gap:16px;">
+          <span id="countdownDays" style="font-size:56px; font-weight:900; line-height:1;">—</span>
+          <div style="text-align:left;">
+            <div style="font-size:22px; font-weight:700;">天</div>
+            <div id="countdownDate" style="font-size:13px; opacity:0.65;"></div>
+          </div>
+        </div>
+        <p style="margin-top:16px; font-size:13px; opacity:0.55;">每天自动更新 · 加油七班！</p>
+      </div>
+    </div>
+  </section>
+
   <!-- 班主任寄语 -->
   <section id="message">
     <div class="section-inner">
@@ -1237,6 +1254,20 @@
         { date: '2026-01-25', title: '🎯 高考倒计时500天', desc: '全班同学在教室举行高考倒计时500天启动仪式，每人写下目标卡贴在心愿墙上，扬帆起航。' },
         { date: '2025-12-10', title: '📚 期末备考动员', desc: '班主任杨老师召开期末备考主题班会，分享高效复习方法，全班进入备考状态。' },
       ];
+
+      /* ----- 高考倒计时 ----- */
+      (function() {
+        var gaokao = new Date(2027, 5, 7);  // 2027年6月7日
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var diff = Math.ceil((gaokao - today) / (1000 * 60 * 60 * 24));
+        var dayEl = document.getElementById('countdownDays');
+        var dateEl = document.getElementById('countdownDate');
+        if (dayEl) {
+          dayEl.textContent = diff > 0 ? diff : '已到';
+          if (dateEl) dateEl.textContent = '2027年6月7日';
+        }
+      })();
 
       /* ----- Hero 背景加载 ----- */
       (function() {
