@@ -1296,8 +1296,7 @@
           var card = document.createElement('div');
           card.className = 'carousel-card';
           card.innerHTML =
-            '<img src="assets/images/' + photo.file + '" alt="' + photo.label + '" loading="' + (i < 6 ? 'eager' : 'lazy') + '" />' +
-            '<div class="card-overlay">' + photo.label + '</div>';
+            '<img src="assets/images/' + photo.file + '" alt="' + photo.label + '" loading="' + (i < 6 ? 'eager' : 'lazy') + '" />';
           card.addEventListener('click', function() {
             modalImg.src = 'assets/images/' + photo.file;
             modalImg.alt = photo.label;
