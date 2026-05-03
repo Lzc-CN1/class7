@@ -796,31 +796,50 @@
       .navbar { 
         padding: 14px 20px; flex-wrap: wrap; gap: 8px;
         background: #1a4a75;
+        /* 移动端滚动时保持不变，禁用桌面端的缩小效果 */
+        transition: background 0.3s ease;
+      }
+      .navbar.scrolled { 
+        padding: 14px 20px; 
+        transform: none;
+        box-shadow: none;
+        background: #153d66;
       }
       .navbar-logo img { height: 48px; }
+      .navbar.scrolled .navbar-logo img { height: 48px; }
       .navbar-class-info .class-name { font-size: 22px; letter-spacing: 1.5px; }
+      .navbar.scrolled .navbar-class-info .class-name { font-size: 22px; letter-spacing: 1.5px; }
       .navbar-class-info .class-motto { font-size: 11px; letter-spacing: 1px; }
+      .navbar.scrolled .navbar-class-info .class-motto { font-size: 11px; opacity: 0.6; }
       .navbar-nav {
-        position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
-        background: linear-gradient(180deg, #153d66 0%, #0f2d4f 100%);
-        flex-direction: column; justify-content: flex-start; padding: 70px 24px 24px; gap: 0;
-        box-shadow: -4px 0 24px rgba(0,0,0,0.25);
-        transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 1001; overflow-y: auto;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: #143a63;
+        display: none;
+        padding: 8px 0;
+        text-align: center;
+        z-index: 1001;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.2);
       }
-      .navbar-nav.open { right: 0; }
-      .nav-links { flex-direction: column; width: 100%; gap: 2px; }
+      .navbar-nav.open { display: block; }
+      .nav-links { flex-direction: column; width: 100%; align-items: center; gap: 0; }
       .nav-links a {
-        padding: 13px 16px; font-size: 16px;
-        color: rgba(255,255,255,0.85); border-radius: 8px;
+        display: block;
+        width: auto;
+        padding: 12px 24px; font-size: 14px;
+        color: rgba(255,255,255,0.8); border-radius: 0;
+        border: none;
       }
+      .navbar.scrolled .nav-links a { padding: 12px 24px; font-size: 14px; }
       .nav-links a:hover,
-      .nav-links a.active {
-        background: rgba(255,255,255,0.12); color: #fff; transform: translateX(4px);
-      }
+      .nav-links a.active { color: #fff; background: rgba(255,255,255,0.08); }
+      /* 移动端不需要独立关闭按钮，点链接即关 */
       .hamburger {
-        display: flex; position: fixed; top: 16px; right: 16px; z-index: 1100;
-        background: rgba(255,255,255,0.12); border-radius: 8px; padding: 10px;
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; top: 50%; right: 16px;
+        transform: translateY(-50%);
+        z-index: 1100;
+        background: none; border: none; cursor: pointer;
+        padding: 10px;
       }
       .hamburger span { background: #fff; }
 
@@ -843,15 +862,25 @@
       .stat-item { padding: 10px 6px; }
       .stat-item .num { font-size: 18px; }
       .carousel-wrap { padding: 0 36px; }
-      .hero { padding-top: 90px; }
+      .hero { padding-top: 90px; text-align: center; }
+      .hero-content { max-width: 100%; margin: 0 auto; }
+      .hero-actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+      }
     }
     @media (max-width: 640px) {
       .carousel-card { flex: 0 0 100%; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 2.2rem; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .btn { width: 100%; justify-content: center; }
+      .hero-actions { flex-direction: row; justify-content: center; align-items: center; }
+      .btn { width: auto; justify-content: center; }
       .members-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -1553,9 +1582,17 @@
         navbarNav.classList.toggle('open');
       });
       navLinks.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var href = this.getAttribute('href');
+          /* 先关闭侧边栏（带滑出动画） */
           hamburger.classList.remove('active');
           navbarNav.classList.remove('open');
+          /* 等动画完成后再跳转 */
+          setTimeout(function() {
+            var target = document.querySelector(href);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300); /* 与CSS transition时间一致 */
         });
       });
 
