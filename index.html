@@ -411,76 +411,84 @@
       color: var(--text-light); font-size: 0.9rem;
     }
 
-    /* ========== 教师队伍 ========== */
+    /* ========== 教师队伍（完全对标学校官网 jsdw1.htm） ========== */
     #teachers { background: #f5f7fa; }
-    .teachers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 24px;
+    .teachers-nav-list {
+      display: flex; align-items: center; gap: 40px;
+      justify-content: center; margin-bottom: 36px;
     }
-    .teacher-card {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      transition: all 0.25s ease;
-      text-align: center;
-      cursor: pointer;
+    .teachers-nav a {
+      color: #555; font-size: 17px; font-weight: 500;
+      padding-bottom: 5px; border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
     }
-    .teacher-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    .teachers-nav a.active { color: #0257aa; border-color: #0257aa; }
+
+    .teachers-list {
+      display: flex; justify-content: space-between; flex-wrap: wrap;
     }
-    .teacher-card:hover .teacher-desc {
-      max-height: 200px;
-      opacity: 1;
-      padding-top: 10px;
-      margin-top: 10px;
+    .teachers-cell {
+      width: 23%; margin-bottom: 30px; cursor: pointer;
+      transition: all .4s ease;
     }
-    .teacher-avatar {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      background: #e8edf2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .teachers-cell .picture {
+      height: 245px; width: 100%; overflow: hidden;
+      background: #e8ecf0;
     }
-    .teacher-avatar img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+    .teachers-cell .picture img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: all .6s ease; display: block;
     }
-    .teacher-info {
-      padding: 14px 14px 12px;
+    .teachers-cell:hover .picture img { transform: scale(1.1); }
+    .teachers-cell:hover { box-shadow: 0 5px 40px rgba(24,114,180,.5); }
+
+    .teachers-info {
+      background: #f5f5f5; padding: 28px 20px;
     }
-    .teacher-info h6 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0 0 4px 0;
+    .teachers-info h6 {
+      font-size: 18px; font-weight: 700; color: #0667ae;
+      margin: 0 0 8px 0;
     }
-    .teacher-info .title-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--primary);
-      background: #eaf2fa;
-      padding: 2px 10px;
-      border-radius: 10px;
+    .teachers-info p {
+      font-size: 14px; color: #444; line-height: 1.6; margin: 0;
     }
-    .teacher-desc {
-      font-size: 12px;
-      color: var(--text-light);
-      line-height: 1.65;
-      text-align: left;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: all 0.35s ease;
-      margin-top: 0;
-      border-top: 1px solid transparent;
+    /* 弹窗 */
+    .pop-teachers {
+      position: fixed; inset: 0; z-index: 99999;
+      display: none; align-items: center; justify-content: center;
     }
+    .pop-teachers.open { display: flex; }
+    .teachers-bg {
+      position: absolute; inset: 0; background: rgba(0,0,0,.75);
+    }
+    .teachers-content {
+      position: relative; z-index: 1; width: 640px;
+      background: #fff; padding: 50px 45px; border-radius: 5px;
+      max-height: 80vh; overflow-y: auto;
+    }
+    .teachers-top {
+      display: flex; align-items: center;
+      padding-bottom: 30px; margin-bottom: 25px;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .teachers-top img {
+      width: 200px; height: 150px; object-fit: cover;
+      flex-shrink: 0;
+    }
+    .teachers-intro { margin-left: 25px; }
+    .teachers-intro h3 {
+      font-size: 22px; font-weight: 700; color: #1872b4; margin: 0 0 10px 0;
+    }
+    .teachers-intro p { font-size: 15px; color: #444; line-height: 1.6; margin: 0; }
+    .teachers-close {
+      position: absolute; right: 30px; top: 30px;
+      cursor: pointer; width: 32px; height: 32px;
+      line-height: 32px; text-align: center;
+      font-size: 24px; color: #999; transition: all .3s;
+    }
+    .teachers-close:hover { transform: rotate(90deg); color: #333; }
+    .teachers-txt { overflow: auto; max-height: none; }
+    .teachers-txt p { color: #666; font-size: 14px; line-height: 2; margin-bottom: 8px; }
 
     /* ========== 班级文化建设 ========== */
     .culture-grid {
@@ -772,6 +780,11 @@
       }
       .members-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
       .teachers-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+      .teachers-cell { width: 48%; margin-bottom: 20px; }
+      .teachers-cell .picture { height: 200px; }
+      .teachers-info { padding: 20px 16px; }
+      .teachers-info h6 { font-size: 16px; }
+      .teachers-content { width: 92%; padding: 35px 25px; }
       .contact-grid { grid-template-columns: 1fr; gap: 30px; }
       .footer-bar { flex-direction: column; gap: 6px; text-align: center; }
       section { padding: 60px 16px; }
@@ -933,51 +946,149 @@
         <h2>教师队伍</h2>
         <p class="sub">名师领航，助力成长</p>
       </div>
-      <div class="teachers-grid reveal">
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/69/B3/CC8A18E85CE366C718C800BD000_CBE5CB88_3FC14.jpg" alt="姜琳玥" loading="lazy"/></div>
-          <div class="teacher-info"><h6>姜琳玥</h6><span class="title-tag">语文 · 硕士</span><div class="teacher-desc">硕士学历，先后毕业于北京师范大学和新加坡国立大学。所主创剧本曾入选中宣部电影局"扶持青年优秀电影剧作计划"。教学理念：师者，所以传道授业解惑也。</div></div>
+      <div class="teachers-nav">
+        <div class="teachers-nav-list" id="teacherNavList">
+          <a href="javascript:;" class="active">全部</a>
+          <a href="javascript:;">语文</a>
+          <a href="javascript:;">数学</a>
+          <a href="javascript:;">外语</a>
+          <a href="javascript:;">物理</a>
+          <a href="javascript:;">化学</a>
+          <a href="javascript:;">政治</a>
+          <a href="javascript:;">地理</a>
+          <a href="javascript:;">体育</a>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/15/4B/EB8814893C126E70858CC9E61D4_F9E7E92C_27305.jpg" alt="杨文杰" loading="lazy"/></div>
-          <div class="teacher-info"><h6>杨文杰</h6><span class="title-tag">数学 · 硕士</span><div class="teacher-desc">本科毕业于湖南师范大学数学与应用数学师范专业，硕士毕业于华南师范大学。现任深圳技术大学附属中学数学教师。多次获校综合奖学金、学业奖学金。</div></div>
+      </div>
+      <div class="teachers-list reveal" id="teachersList">
+
+        <!-- 姜琳玥 -->
+        <div class="teachers-cell" data-subject="语文"
+             data-name="姜琳玥"
+             data-post="硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/5/69/B3/CC8A18E85CE366C718C800BD000_CBE5CB88_3FC14.jpg"
+             data-desc="硕士学历，先后毕业于北京师范大学和新加坡国立大学。学生阶段曾获优秀学生干部等荣誉，所主创剧本曾入选中宣部电影局&quot;扶持青年优秀电影剧作计划&quot;。格物愿为红烛火，笃志常作杏坛人。我会为学生的健康成长而努力工作，用爱心去浇灌，用真情去感化，用智慧去启迪，用人格去熏陶，用理想去塑造这一个个充满希望与梦想的生命。教学理念：师者，所以传道授业解惑也。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/5/69/B3/CC8A18E85CE366C718C800BD000_CBE5CB88_3FC14.jpg" alt="姜琳玥" loading="lazy"/></div>
+          <div class="teachers-info"><h6>姜琳玥</h6><p></p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/8/FD/CC/00E050119F966723B2E94771981_F3BAA290_5FFF42.jpg" alt="刘艳艳" loading="lazy"/></div>
-          <div class="teacher-info"><h6>刘艳艳</h6><span class="title-tag">日语 · 硕士</span><div class="teacher-desc">硕士毕业于南开大学外国语学院日语语言文学专业，持有日语N1、专四专八、catti笔译三级证书。曾在宜兴市丁蜀高级中学、新东方等单位参与教学工作。</div></div>
+
+        <!-- 杨文杰 -->
+        <div class="teachers-cell" data-subject="数学"
+             data-name="杨文杰"
+             data-post="班主任 / 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/5/15/4B/EB8814893C126E70858CC9E61D4_F9E7E92C_27305.jpg"
+             data-desc="本科毕业于湖南师范大学数学与应用数学师范专业，硕士毕业于华南师范大学。在校期间多次获校综合奖学金、学业奖学金。本科期间连续两年担任班级班长，省级优秀支教团队调研组组长。现任深圳技术大学附属中学数学教师。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/5/15/4B/EB8814893C126E70858CC9E61D4_F9E7E92C_27305.jpg" alt="杨文杰" loading="lazy"/></div>
+          <div class="teachers-info"><h6>杨文杰</h6><p>班主任</p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/8/05/97/DB1FB8C9BFBC7190AC7AE20DEAF_505F96A4_21381.jpg" alt="张宇晴" loading="lazy"/></div>
-          <div class="teacher-info"><h6>张宇晴</h6><span class="title-tag">英语 · 硕士</span><div class="teacher-desc">硕士毕业于英国曼彻斯特大学教育学专业；本科毕业于广东外语外贸大学英语语言学专业。英语专业八级，雅思C1等级（听力8.0），具有海外留学交流经验。</div></div>
+
+        <!-- 刘艳艳 -->
+        <div class="teachers-cell" data-subject="外语"
+             data-name="刘艳艳"
+             data-post="日语 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/8/FD/CC/00E050119F966723B2E94771981_F3BAA290_5FFF42.jpg"
+             data-desc="硕士毕业于南开大学外国语学院日语语言文学专业，持有日语N1、专四专八、catti笔译三级证书。曾于宜兴市丁蜀高级中学、新东方、东京学术塾分校等单位参与日语等级考及高考日语教学工作。教学理念：语言学习重在坚持和积累。希望通过言传身教培养起学生良好的学习习惯。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/8/FD/CC/00E050119F966723B2E94771981_F3BAA290_5FFF42.jpg" alt="刘艳艳" loading="lazy"/></div>
+          <div class="teachers-info"><h6>刘艳艳</h6><p>日语</p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/4/26/4D/D2D1EF01C14DC596E9AF9321445_D657806F_26EFC.jpg" alt="武海燕" loading="lazy"/></div>
-          <div class="teacher-info"><h6>武海燕</h6><span class="title-tag">化学 · 硕士</span><div class="teacher-desc">清华大学材料科学与工程硕士。2021年入校，曾担任2021级、2024级年级主任。教学理念：师生互助、合作共进。</div></div>
+
+        <!-- 张宇晴 -->
+        <div class="teachers-cell" data-subject="外语"
+             data-name="张宇晴"
+             data-post="英语 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/8/05/97/DB1FB8C9BFBC7190AC7AE20DEAF_505F96A4_21381.jpg"
+             data-desc="硕士毕业于英国曼彻斯特大学教育学专业；本科毕业于广东外语外贸大学英语语言学专业。英语专业八级，雅思C1等级（听力8.0），具有海外留学交流经验。严谨、认真、乐观、开朗，爱钻研，爱思考，注重基础知识，注重兴趣热情，注重创造性思维，注重审辩式思维。教学理念：学然后知不足，教然后知困；教学相长也。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/8/05/97/DB1FB8C9BFBC7190AC7AE20DEAF_505F96A4_21381.jpg" alt="张宇晴" loading="lazy"/></div>
+          <div class="teachers-info"><h6>张宇晴</h6><p>英语</p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/3/DF/94/C5FFB0A6976644474C070CDB612_89897BCF_31C99.jpg" alt="袁汀" loading="lazy"/></div>
-          <div class="teacher-info"><h6>袁汀</h6><span class="title-tag">化学 · 博士</span><div class="teacher-desc">中共党员，工学博士研究生。本科毕业于江西师范大学材料化学专业，哈尔滨工业大学化学工程与技术硕博连读。教学理念：让花成花，让树成树，因材施教。</div></div>
+
+        <!-- 武海燕 -->
+        <div class="teachers-cell" data-subject="化学"
+             data-name="武海燕"
+             data-post="化学 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/4/26/4D/D2D1EF01C14DC596E9AF9321445_D657806F_26EFC.jpg"
+             data-desc="清华大学材料科学与工程硕士，硕士研究方向为燃料电池阴极非贵金属单原子催化剂。先后任职于清华大学材料学院紫荆志愿者支队、校学生会生活权益部、院团委实践部。2021年入校，曾担任2021级、2024级年级主任。教学理念：师生互助、合作共进。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/4/26/4D/D2D1EF01C14DC596E9AF9321445_D657806F_26EFC.jpg" alt="武海燕" loading="lazy"/></div>
+          <div class="teachers-info"><h6>武海燕</h6><p>化学</p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/A/52/8E/D22A9126FD0495EFA73F440E111_1528A27A_2E78F.jpg" alt="黄俊龙" loading="lazy"/></div>
-          <div class="teacher-info"><h6>黄俊龙</h6><span class="title-tag">生物 · 高级教师</span><div class="teacher-desc">中学高级教师，全国生物学奥林匹克竞赛高级教练，省高中新教材实施生物学科专家库成员，市级骨干教师。执教20年，班主任工作13年，深受学生喜爱！</div></div>
+
+        <!-- 袁汀 -->
+        <div class="teachers-cell" data-subject="化学"
+             data-name="袁汀"
+             data-post="化学 · 博士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/3/DF/94/C5FFB0A6976644474C070CDB612_89897BCF_31C99.jpg"
+             data-desc="中共党员，工学博士研究生，本科毕业于江西师范大学材料化学专业，后于哈尔滨工业大学化学工程与技术专业硕博连读，曾获江西师范大学三好学生、江西师范大学优秀毕业生、哈尔滨工业大学（深圳）优秀学生荣誉称号。教学理念：让花成花，让树成树，因材施教。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/3/DF/94/C5FFB0A6976644474C070CDB612_89897BCF_31C99.jpg" alt="袁汀" loading="lazy"/></div>
+          <div class="teachers-info"><h6>袁汀</h6><p>化学</p><p>博士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/F5/D3/744FA121787977B95A3F0AA435B_7E48D716_33E1B.jpg" alt="吴晓君" loading="lazy"/></div>
-          <div class="teacher-info"><h6>吴晓君</h6><span class="title-tag">物理 · 博士</span><div class="teacher-desc">本科毕业于郑州大学，于北京大学获得博士学位并完成博士后工作。中国共产党员和深圳市志愿者。</div></div>
+
+        <!-- 黄俊龙 -->
+        <div class="teachers-cell" data-subject="生物"
+             data-name="黄俊龙"
+             data-post="生物 · 高级教师"
+             data-img="https://sztuhs.sztu.edu.cn/__local/A/52/8E/D22A9126FD0495EFA73F440E111_1528A27A_2E78F.jpg"
+             data-desc="中学高级教师，全国生物学奥林匹克竞赛高级教练，省高中新教材实施生物学科专家库成员，市级骨干教师，市优秀教师，市&quot;烛光杯&quot;教学大赛评委，区优秀班主任，区优秀共产党员，区兼职教研员，执教20年，班主任工作13年，踏实严谨，风格幽默，心有信仰，行事虔诚，从教以来注重学生德育培养，注重生物与科技生活实际结合，注重创新思维培养，深受学生喜爱！">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/A/52/8E/D22A9126FD0495EFA73F440E111_1528A27A_2E78F.jpg" alt="黄俊龙" loading="lazy"/></div>
+          <div class="teachers-info"><h6>黄俊龙</h6><p>高级教师</p><p>生物</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/A5/D4/41671A83F6A812333BE52402E16_1787D0F0_1D044.jpg" alt="陈兵" loading="lazy"/></div>
-          <div class="teacher-info"><h6>陈兵</h6><span class="title-tag">政治 · 硕士</span><div class="teacher-desc">中共党员，法学硕士研究生，本科和研究生阶段均就读于中国人民大学。获硕士研究生学业奖学金二等奖、社会工作与志愿服务奖学金。教学理念：让学生学会自主学习。</div></div>
+
+        <!-- 吴晓君 -->
+        <div class="teachers-cell" data-subject="物理"
+             data-name="吴晓君"
+             data-post="物理 · 博士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/5/F5/D3/744FA121787977B95A3F0AA435B_7E48D716_33E1B.jpg"
+             data-desc="吴晓君，本科毕业于郑州大学，于北京大学获得博士学位并完成博士后工作，中国共产党员和深圳市志愿者。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/5/F5/D3/744FA121787977B95A3F0AA435B_7E48D716_33E1B.jpg" alt="吴晓君" loading="lazy"/></div>
+          <div class="teachers-info"><h6>吴晓君</h6><p>物理</p><p>博士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/C/A8/9E/E1F11505D1359630E831FAF751B_321DB37B_1B96E.jpg" alt="任思奇" loading="lazy"/></div>
-          <div class="teacher-info"><h6>任思奇</h6><span class="title-tag">地理 · 硕士</span><div class="teacher-desc">研究生毕业于东北师范大学学科地理专业。获全国中学地理教研成果评比一等奖。教学理念：真诚对待每一位学生，用心打造每一节课堂。</div></div>
+
+        <!-- 陈兵 -->
+        <div class="teachers-cell" data-subject="政治"
+             data-name="陈兵"
+             data-post="政治 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/5/A5/D4/41671A83F6A812333BE52402E16_1787D0F0_1D044.jpg"
+             data-desc="中共党员，法学硕士研究生，本科和研究生阶段都就读于中国人民大学，获硕士研究生学业奖学金二等奖、社会工作与志愿服务奖学金。教学理念：让学生学会自主学习。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/5/A5/D4/41671A83F6A812333BE52402E16_1787D0F0_1D044.jpg" alt="陈兵" loading="lazy"/></div>
+          <div class="teachers-info"><h6>陈兵</h6><p>政治</p><p>硕士</p></div>
         </div>
-        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
-          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/2/F1/83/364D5A3156D4BC99EAAF713257F_5522C1C3_1D2D5.jpg" alt="冯亭" loading="lazy"/></div>
-          <div class="teacher-info"><h6>冯亭</h6><span class="title-tag">体育 · 硕士</span><div class="teacher-desc">本硕均毕业于上海体育学院。掌握啦啦操、排舞、花样跳绳等多个体育项目，上海体育学院旱地冰球校队成员。积极探索创新教学方式，激发学生主动性。</div></div>
+
+        <!-- 任思奇 -->
+        <div class="teachers-cell" data-subject="地理"
+             data-name="任思奇"
+             data-post="地理 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/C/A8/9E/E1F11505D1359630E831FAF751B_321DB37B_1B96E.jpg"
+             data-desc="研究生毕业于东北师范大学学科地理专业，主修中学地理教学原理、高观点下的中学自然地理等课程。研究生期间获全国中学地理教研成果评比一等奖。教学理念：真诚对待每一位学生，用心打造每一节课堂。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/C/A8/9E/E1F11505D1359630E831FAF751B_321DB37B_1B96E.jpg" alt="任思奇" loading="lazy"/></div>
+          <div class="teachers-info"><h6>任思奇</h6><p>地理</p><p>硕士</p></div>
         </div>
+
+        <!-- 冯亭 -->
+        <div class="teachers-cell" data-subject="体育"
+             data-name="冯亭"
+             data-post="体育 · 硕士"
+             data-img="https://sztuhs.sztu.edu.cn/__local/2/F1/83/364D5A3156D4BC99EAAF713257F_5522C1C3_1D2D5.jpg"
+             data-desc="本科毕业于上海体育学院休闲体育专业，掌握啦啦操、排舞、花样跳绳等多个体育项目，上海体育学院旱地冰球校队成员，曾获上海市阳光体育大联赛旱地冰球高校组第一名。硕士研究生毕业于上海体育学院体育教学专业，积极探索创新教学方式，激发学生主动性。">
+          <div class="picture"><img src="https://sztuhs.sztu.edu.cn/__local/2/F1/83/364D5A3156D4BC99EAAF713257F_5522C1C3_1D2D5.jpg" alt="冯亭" loading="lazy"/></div>
+          <div class="teachers-info"><h6>冯亭</h6><p>体育</p><p>硕士</p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 教师详情弹窗 -->
+  <div class="pop-teachers" id="popTeachers">
+    <div class="teachers-bg" id="popBg"></div>
+    <div class="teachers-content">
+      <div class="teachers-close" id="popClose">×</div>
+      <div class="teachers-top">
+        <img id="popImg" src="" alt=""/>
+        <div class="teachers-intro">
+          <h3 id="popName"></h3>
+          <p id="popPost"></p>
+        </div>
+      </div>
+      <div class="teachers-txt">
+        <div class="teachers-inner-txt" id="popDesc"></div>
       </div>
     </div>
   </section>
@@ -1372,6 +1483,56 @@
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
       document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+      /* ----- 教师队伍：弹窗 + 学科筛选 ----- */
+      var popTeachers = document.getElementById('popTeachers');
+      var popImg = document.getElementById('popImg');
+      var popName = document.getElementById('popName');
+      var popPost = document.getElementById('popPost');
+      var popDesc = document.getElementById('popDesc');
+      var popBg = document.getElementById('popBg');
+      var popClose = document.getElementById('popClose');
+
+      function openTeacherPop(cell) {
+        popImg.src = cell.dataset.img;
+        popImg.alt = cell.dataset.name;
+        popName.textContent = cell.dataset.name;
+        popPost.textContent = cell.dataset.post || '';
+        popDesc.innerHTML = '<p>' + (cell.dataset.desc || '') + '</p>';
+        popTeachers.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeTeacherPop() {
+        popTeachers.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.teachers-cell').forEach(function(cell) {
+        cell.addEventListener('click', function() { openTeacherPop(this); });
+      });
+      popClose.addEventListener('click', closeTeacherPop);
+      popBg.addEventListener('click', closeTeacherPop);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popTeachers.classList.contains('open')) closeTeacherPop();
+      });
+
+      /* 学科筛选 */
+      var navLinks = document.querySelectorAll('#teacherNavList a');
+      navLinks.forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          navLinks.forEach(function(n) { n.classList.remove('active'); });
+          this.classList.add('active');
+          var subject = this.textContent.trim();
+          document.querySelectorAll('.teachers-cell').forEach(function(cell) {
+            if (subject === '全部' || cell.dataset.subject === subject) {
+              cell.style.display = '';
+            } else {
+              cell.style.display = 'none';
+            }
+          });
+        });
+      });
 
       /* ----- 联系表单 ----- */
       document.getElementById('contactForm').addEventListener('submit', function(e) {
