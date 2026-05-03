@@ -425,24 +425,34 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
       transition: all 0.25s ease;
       text-align: center;
+      cursor: pointer;
     }
     .teacher-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
+    .teacher-card:hover .teacher-desc {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
     .teacher-avatar {
       width: 100%;
-      aspect-ratio: 1 / 1.1;
+      aspect-ratio: 3 / 4;
       overflow: hidden;
+      background: #e8edf2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      font-weight: 800;
-      color: #fff;
+    }
+    .teacher-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .teacher-info {
-      padding: 14px 12px 18px;
+      padding: 14px 14px 12px;
     }
     .teacher-info h6 {
       font-size: 16px;
@@ -450,10 +460,26 @@
       color: var(--text);
       margin: 0 0 4px 0;
     }
-    .teacher-info p {
-      font-size: 13px;
+    .teacher-info .title-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--primary);
+      background: #eaf2fa;
+      padding: 2px 10px;
+      border-radius: 10px;
+    }
+    .teacher-desc {
+      font-size: 12px;
       color: var(--text-light);
-      margin: 0;
+      line-height: 1.65;
+      text-align: left;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.35s ease;
+      margin-top: 0;
+      border-top: 1px solid transparent;
     }
 
     /* ========== 班级文化建设 ========== */
@@ -745,8 +771,7 @@
         bottom: -10px; right: 50%; transform: translateX(50%);
       }
       .members-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-      .teachers-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
-      .teacher-avatar { font-size: 36px; }
+      .teachers-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
       .contact-grid { grid-template-columns: 1fr; gap: 30px; }
       .footer-bar { flex-direction: column; gap: 6px; text-align: center; }
       section { padding: 60px 16px; }
@@ -832,7 +857,7 @@
               <div class="label">班级人数</div>
             </div>
             <div class="stat-item">
-              <div class="num">12</div>
+              <div class="num">11</div>
               <div class="label">学科老师</div>
             </div>
             <div class="stat-item">
@@ -909,49 +934,49 @@
         <p class="sub">名师领航，助力成长</p>
       </div>
       <div class="teachers-grid reveal">
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #2d6a9f, #4a90c4);">姜</div>
-          <div class="teacher-info"><h6>姜琳玥</h6><p>语文教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/69/B3/CC8A18E85CE366C718C800BD000_CBE5CB88_3FC14.jpg" alt="姜琳玥" loading="lazy"/></div>
+          <div class="teacher-info"><h6>姜琳玥</h6><span class="title-tag">语文 · 硕士</span><div class="teacher-desc">硕士学历，先后毕业于北京师范大学和新加坡国立大学。所主创剧本曾入选中宣部电影局"扶持青年优秀电影剧作计划"。教学理念：师者，所以传道授业解惑也。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #c0392b, #e74c3c);">杨</div>
-          <div class="teacher-info"><h6>杨文杰</h6><p>班主任 / 数学教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/15/4B/EB8814893C126E70858CC9E61D4_F9E7E92C_27305.jpg" alt="杨文杰" loading="lazy"/></div>
+          <div class="teacher-info"><h6>杨文杰</h6><span class="title-tag">数学 · 硕士</span><div class="teacher-desc">本科毕业于湖南师范大学数学与应用数学师范专业，硕士毕业于华南师范大学。现任深圳技术大学附属中学数学教师。多次获校综合奖学金、学业奖学金。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">刘</div>
-          <div class="teacher-info"><h6>刘艳艳</h6><p>英语教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/8/FD/CC/00E050119F966723B2E94771981_F3BAA290_5FFF42.jpg" alt="刘艳艳" loading="lazy"/></div>
+          <div class="teacher-info"><h6>刘艳艳</h6><span class="title-tag">日语 · 硕士</span><div class="teacher-desc">硕士毕业于南开大学外国语学院日语语言文学专业，持有日语N1、专四专八、catti笔译三级证书。曾在宜兴市丁蜀高级中学、新东方等单位参与教学工作。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #f39c12, #f1c40f);">张</div>
-          <div class="teacher-info"><h6>张宇晴</h6><p>物理教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/8/05/97/DB1FB8C9BFBC7190AC7AE20DEAF_505F96A4_21381.jpg" alt="张宇晴" loading="lazy"/></div>
+          <div class="teacher-info"><h6>张宇晴</h6><span class="title-tag">英语 · 硕士</span><div class="teacher-desc">硕士毕业于英国曼彻斯特大学教育学专业；本科毕业于广东外语外贸大学英语语言学专业。英语专业八级，雅思C1等级（听力8.0），具有海外留学交流经验。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #8e44ad, #9b59b6);">武</div>
-          <div class="teacher-info"><h6>武海燕</h6><p>化学教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/4/26/4D/D2D1EF01C14DC596E9AF9321445_D657806F_26EFC.jpg" alt="武海燕" loading="lazy"/></div>
+          <div class="teacher-info"><h6>武海燕</h6><span class="title-tag">化学 · 硕士</span><div class="teacher-desc">清华大学材料科学与工程硕士。2021年入校，曾担任2021级、2024级年级主任。教学理念：师生互助、合作共进。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #16a085, #1abc9c);">袁</div>
-          <div class="teacher-info"><h6>袁汀</h6><p>生物教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/3/DF/94/C5FFB0A6976644474C070CDB612_89897BCF_31C99.jpg" alt="袁汀" loading="lazy"/></div>
+          <div class="teacher-info"><h6>袁汀</h6><span class="title-tag">化学 · 博士</span><div class="teacher-desc">中共党员，工学博士研究生。本科毕业于江西师范大学材料化学专业，哈尔滨工业大学化学工程与技术硕博连读。教学理念：让花成花，让树成树，因材施教。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #e67e22, #d35400);">黄</div>
-          <div class="teacher-info"><h6>黄俊龙</h6><p>历史教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/A/52/8E/D22A9126FD0495EFA73F440E111_1528A27A_2E78F.jpg" alt="黄俊龙" loading="lazy"/></div>
+          <div class="teacher-info"><h6>黄俊龙</h6><span class="title-tag">生物 · 高级教师</span><div class="teacher-desc">中学高级教师，全国生物学奥林匹克竞赛高级教练，省高中新教材实施生物学科专家库成员，市级骨干教师。执教20年，班主任工作13年，深受学生喜爱！</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #2980b9, #3498db);">吴</div>
-          <div class="teacher-info"><h6>吴晓君</h6><p>地理教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/F5/D3/744FA121787977B95A3F0AA435B_7E48D716_33E1B.jpg" alt="吴晓君" loading="lazy"/></div>
+          <div class="teacher-info"><h6>吴晓君</h6><span class="title-tag">物理 · 博士</span><div class="teacher-desc">本科毕业于郑州大学，于北京大学获得博士学位并完成博士后工作。中国共产党员和深圳市志愿者。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #d35400, #e67e22);">陈</div>
-          <div class="teacher-info"><h6>陈兵</h6><p>政治教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/5/A5/D4/41671A83F6A812333BE52402E16_1787D0F0_1D044.jpg" alt="陈兵" loading="lazy"/></div>
+          <div class="teacher-info"><h6>陈兵</h6><span class="title-tag">政治 · 硕士</span><div class="teacher-desc">中共党员，法学硕士研究生，本科和研究生阶段均就读于中国人民大学。获硕士研究生学业奖学金二等奖、社会工作与志愿服务奖学金。教学理念：让学生学会自主学习。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #1abc9c, #16a085);">任</div>
-          <div class="teacher-info"><h6>任思奇</h6><p>日语教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/C/A8/9E/E1F11505D1359630E831FAF751B_321DB37B_1B96E.jpg" alt="任思奇" loading="lazy"/></div>
+          <div class="teacher-info"><h6>任思奇</h6><span class="title-tag">地理 · 硕士</span><div class="teacher-desc">研究生毕业于东北师范大学学科地理专业。获全国中学地理教研成果评比一等奖。教学理念：真诚对待每一位学生，用心打造每一节课堂。</div></div>
         </div>
-        <div class="teacher-card">
-          <div class="teacher-avatar" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">冯</div>
-          <div class="teacher-info"><h6>冯亭</h6><p>美术/音乐教师</p></div>
+        <div class="teacher-card" onclick="this.classList.toggle('expanded')">
+          <div class="teacher-avatar"><img src="https://sztuhs.sztu.edu.cn/__local/2/F1/83/364D5A3156D4BC99EAAF713257F_5522C1C3_1D2D5.jpg" alt="冯亭" loading="lazy"/></div>
+          <div class="teacher-info"><h6>冯亭</h6><span class="title-tag">体育 · 硕士</span><div class="teacher-desc">本硕均毕业于上海体育学院。掌握啦啦操、排舞、花样跳绳等多个体育项目，上海体育学院旱地冰球校队成员。积极探索创新教学方式，激发学生主动性。</div></div>
         </div>
       </div>
     </div>
