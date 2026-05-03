@@ -32,7 +32,6 @@
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      padding-top: 96px; /* navbar 双行高度 */
     }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
@@ -40,65 +39,92 @@
 
     /* ========== 导航栏（双行：校名牌 + 导航条） ========== */
     .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; flex-direction: column;
+      position: relative; z-index: 1000;
       background: transparent;
+      transition: transform 0.35s ease;
     }
     /* 第一行：校名牌 */
     .navbar-top {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 40px;
+      padding: 14px 40px;
       background: #fff;
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
     .navbar-school {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
     }
     .navbar-school img {
-      height: 42px; width: auto;
+      height: 44px; width: auto; object-fit: contain;
     }
     .navbar-school-text {
       display: flex; flex-direction: column;
-      line-height: 1.2;
+      line-height: 1.25;
     }
     .navbar-school-text .school-cn {
-      font-size: 18px; font-weight: 700; color: #1a3a5c;
+      font-size: 17px; font-weight: 700; color: #1a3a5c;
       letter-spacing: 2px;
     }
     .navbar-school-text .school-en {
-      font-size: 10px; color: #888; text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-size: 10px; color: #999; text-transform: uppercase;
+      letter-spacing: 0.6px; margin-top: 1px;
     }
     .navbar-class {
       text-align: right;
     }
     .navbar-class .class-name {
-      font-size: 20px; font-weight: 700; color: #1a3a5c;
+      font-size: 20px; font-weight: 800; color: #1a4a75;
+      line-height: 1.15;
     }
     .navbar-class .class-motto {
-      font-size: 12px; color: #999; margin-top: 2px;
+      font-size: 11px; color: #aaa; margin-top: 3px;
+      letter-spacing: 1.5px;
     }
-    .navbar-class .class-motto span { margin: 0 4px; color: #ccc; }
     /* 第二行：导航链接 */
     .navbar-nav {
-      background: #1a4a75;
+      background: linear-gradient(135deg, #1a4a75 0%, #123558 100%);
       display: flex; align-items: center;
       padding: 0 40px;
+      box-shadow: 0 2px 10px rgba(26,74,117,0.25);
     }
-    .nav-links { display: flex; gap: 4px; }
+    .nav-links { display: flex; gap: 0; }
     .nav-links a {
-      padding: 12px 16px; border-radius: 0;
+      padding: 13px 18px; border-radius: 0;
       font-size: 14px; font-weight: 500;
       color: rgba(255,255,255,0.85);
-      transition: color 0.2s, background 0.2s;
+      transition: all 0.22s ease;
+      position: relative;
     }
-    .nav-links a:hover,
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      width: 0; height: 2px;
+      background: #f5a623;
+      transition: all 0.25s ease;
+      transform: translateX(-50%);
+    }
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+    .nav-links a:hover::after {
+      width: 60%;
+    }
     .nav-links a.active {
       color: #fff;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
     }
-    .navbar.scrolled .navbar-top {
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    /* 滚动时固定导航条 */
+    .navbar.sticky {
+      position: fixed; top: 0; left: 0; right: 0;
+      transform: translateY(-100%);
+      z-index: 1000;
+    }
+    .navbar.sticky .navbar-top { display: none; }
+    .navbar.sticky .navbar-nav { box-shadow: 0 2px 16px rgba(26,74,117,0.3); }
+    .navbar.sticky.show {
+      transform: translateY(0);
     }
 
     /* ========== 汉堡菜单 ========== */
@@ -111,6 +137,7 @@
       background: var(--text); border-radius: 2px;
       transition: all 0.3s;
     }
+    .hamburger.active span { background: #fff; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -776,26 +803,36 @@
 
     /* ========== 响应式 ========== */
     @media (max-width: 768px) {
-      .navbar-top { padding: 8px 16px; flex-wrap: wrap; gap: 6px; }
-      .navbar-school img { height: 32px; }
+      .navbar-top { padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
+      .navbar-school img { height: 34px; }
       .navbar-school-text .school-cn { font-size: 14px; letter-spacing: 1px; }
       .navbar-school-text .school-en { font-size: 9px; }
       .navbar-class .class-name { font-size: 15px; }
-      .navbar-class .class-motto { font-size: 10px; }
+      .navbar-class .class-motto { font-size: 9px; letter-spacing: 1px; }
       .navbar-nav {
-        position: fixed; top: 0; right: -100%; width: 240px; height: 100vh;
-        background: #1a4a75;
+        position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
+        background: linear-gradient(180deg, #1a4a75 0%, #123558 100%);
         flex-direction: column; padding: 60px 20px 20px; gap: 2px;
-        box-shadow: -2px 0 20px rgba(0,0,0,0.1);
-        transition: right 0.3s;
-        z-index: 1001;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+        transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1001; overflow-y: auto;
       }
       .navbar-nav.open { right: 0; }
       .nav-links { flex-direction: column; width: 100%; }
-      .nav-links a { padding: 12px 14px; font-size: 15px; color: rgba(255,255,255,0.85); border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .nav-links a {
+        padding: 13px 18px; font-size: 15px;
+        color: rgba(255,255,255,0.85); border-bottom: 1px solid rgba(255,255,255,0.06);
+        border-radius: 8px; margin-bottom: 2px;
+        transition: all 0.2s ease;
+      }
       .nav-links a:hover,
-      .nav-links a.active { background: rgba(255,255,255,0.08); color: #fff; }
-      .hamburger { display: flex; position: fixed; top: 10px; right: 16px; z-index: 1100; }
+      .nav-links a.active {
+        background: rgba(255,255,255,0.12); color: #fff; transform: translateX(4px);
+      }
+      .hamburger {
+        display: flex; position: absolute; top: 14px; right: 16px; z-index: 1100;
+        background: rgba(26,74,117,0.08); border-radius: 8px; padding: 10px;
+      }
 
       .about-grid { grid-template-columns: 1fr; gap: 30px; }
       .about-image .float-badge {
@@ -1497,13 +1534,28 @@
 
       /* ----- 导航栏 + 视差 ----- */
       var navbar = document.getElementById('navbar');
+      var navBarNav = navbar.querySelector('.navbar-nav');
       var backToTop = document.getElementById('backToTop');
       var heroBg = document.getElementById('heroBg');
+      var lastScrollY = 0;
+
+      // 导航条滚动固定逻辑
+      function updateNavbar() {
+        var scrollY = window.scrollY;
+        var navRect = navBarNav.getBoundingClientRect();
+        // 当导航条滚出视口时，使其固定在顶部
+        if (navRect.top <= 0 && !navbar.classList.contains('sticky')) {
+          navbar.classList.add('sticky');
+          setTimeout(function() { navbar.classList.add('show'); }, 10);
+        } else if (navRect.top > 0 && navbar.classList.contains('sticky')) {
+          navbar.classList.remove('show');
+          setTimeout(function() { navbar.classList.remove('sticky'); }, 300);
+        }
+      }
 
       window.addEventListener('scroll', function() {
         var scrollY = window.scrollY;
-        if (scrollY > 60) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
+        updateNavbar();
         if (scrollY > 500) backToTop.classList.add('visible');
         else backToTop.classList.remove('visible');
 
@@ -1512,6 +1564,7 @@
         if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
           heroBg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
         }
+        lastScrollY = scrollY;
       });
 
       backToTop.addEventListener('click', function() {
