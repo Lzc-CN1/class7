@@ -32,6 +32,7 @@
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      padding-top: 100px; /* 固定导航栏高度 */
     }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
@@ -39,16 +40,18 @@
 
     /* ========== 导航栏（双行：校名牌 + 导航条） ========== */
     .navbar {
-      position: relative; z-index: 1000;
-      background: transparent;
-      transition: transform 0.35s ease;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; flex-direction: column;
+      background: #fff;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      transition: box-shadow 0.3s;
     }
+    .navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.12); }
     /* 第一行：校名牌 */
     .navbar-top {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 40px;
+      padding: 12px 40px;
       background: #fff;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
     .navbar-school {
       display: flex; align-items: center; gap: 12px;
@@ -84,7 +87,6 @@
       background: linear-gradient(135deg, #1a4a75 0%, #123558 100%);
       display: flex; align-items: center;
       padding: 0 40px;
-      box-shadow: 0 2px 10px rgba(26,74,117,0.25);
     }
     .nav-links { display: flex; gap: 0; }
     .nav-links a {
@@ -109,22 +111,6 @@
     }
     .nav-links a:hover::after {
       width: 60%;
-    }
-    .nav-links a.active {
-      color: #fff;
-      background: rgba(255,255,255,0.06);
-    }
-
-    /* 滚动时固定导航条 */
-    .navbar.sticky {
-      position: fixed; top: 0; left: 0; right: 0;
-      transform: translateY(-100%);
-      z-index: 1000;
-    }
-    .navbar.sticky .navbar-top { display: none; }
-    .navbar.sticky .navbar-nav { box-shadow: 0 2px 16px rgba(26,74,117,0.3); }
-    .navbar.sticky.show {
-      transform: translateY(0);
     }
 
     /* ========== 汉堡菜单 ========== */
@@ -803,6 +789,7 @@
 
     /* ========== 响应式 ========== */
     @media (max-width: 768px) {
+      body { padding-top: 90px; }
       .navbar-top { padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
       .navbar-school img { height: 34px; }
       .navbar-school-text .school-cn { font-size: 14px; letter-spacing: 1px; }
@@ -1534,28 +1521,13 @@
 
       /* ----- 导航栏 + 视差 ----- */
       var navbar = document.getElementById('navbar');
-      var navBarNav = navbar.querySelector('.navbar-nav');
       var backToTop = document.getElementById('backToTop');
       var heroBg = document.getElementById('heroBg');
-      var lastScrollY = 0;
-
-      // 导航条滚动固定逻辑
-      function updateNavbar() {
-        var scrollY = window.scrollY;
-        var navRect = navBarNav.getBoundingClientRect();
-        // 当导航条滚出视口时，使其固定在顶部
-        if (navRect.top <= 0 && !navbar.classList.contains('sticky')) {
-          navbar.classList.add('sticky');
-          setTimeout(function() { navbar.classList.add('show'); }, 10);
-        } else if (navRect.top > 0 && navbar.classList.contains('sticky')) {
-          navbar.classList.remove('show');
-          setTimeout(function() { navbar.classList.remove('sticky'); }, 300);
-        }
-      }
 
       window.addEventListener('scroll', function() {
         var scrollY = window.scrollY;
-        updateNavbar();
+        if (scrollY > 10) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
         if (scrollY > 500) backToTop.classList.add('visible');
         else backToTop.classList.remove('visible');
 
@@ -1564,7 +1536,6 @@
         if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
           heroBg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
         }
-        lastScrollY = scrollY;
       });
 
       backToTop.addEventListener('click', function() {
@@ -1573,16 +1544,16 @@
 
       /* ----- 汉堡菜单 ----- */
       var hamburger = document.getElementById('hamburger');
-      var navBar = document.getElementById('navbar');
       var navLinks = document.getElementById('navLinks');
+      var navbarNav = document.querySelector('.navbar-nav');
       hamburger.addEventListener('click', function() {
         this.classList.toggle('active');
-        navBar.querySelector('.navbar-nav').classList.toggle('open');
+        navbarNav.classList.toggle('open');
       });
       navLinks.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', function() {
           hamburger.classList.remove('active');
-          navBar.querySelector('.navbar-nav').classList.remove('open');
+          navbarNav.classList.remove('open');
         });
       });
 
