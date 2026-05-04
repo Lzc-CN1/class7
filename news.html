@@ -76,32 +76,6 @@
       margin-top: 8px;
     }
 
-    /* 筛选栏 */
-    .filter-bar {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px 24px 0;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      background: #fff;
-      border: 1px solid #e4e8ed;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 13px;
-      color: var(--text-light);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: var(--font);
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
     /* 新闻卡片网格 */
     .news-grid {
       max-width: 960px;
@@ -356,9 +330,6 @@
     <p>七班同学精心整理的每日时事热点</p>
   </div>
 
-  <!-- 筛选栏 -->
-  <div class="filter-bar" id="filterBar"></div>
-
   <!-- 新闻卡片网格 -->
   <div class="news-grid" id="newsGrid"></div>
 
@@ -449,32 +420,8 @@
       return '';
     }
 
-    // 渲染筛选栏
-    function renderFilterBar() {
-      var bar = document.getElementById('filterBar');
-      var allCats = ['全部'];
-      newsData.forEach(function(news) {
-        var cats = getCategories(news.content);
-        cats.forEach(function(c) {
-          if (allCats.indexOf(c) === -1) allCats.push(c);
-        });
-      });
-      var html = '';
-      allCats.forEach(function(cat) {
-        html += '<button class="filter-btn' + (cat === '全部' ? ' active' : '') + '" data-cat="' + cat + '">' + cat + '</button>';
-      });
-      bar.innerHTML = html;
-      bar.querySelectorAll('.filter-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          bar.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          renderNewsGrid(btn.dataset.cat);
-        });
-      });
-    }
-
     // 渲染新闻网格
-    function renderNewsGrid(filter) {
+    function renderNewsGrid() {
       var grid = document.getElementById('newsGrid');
       var html = '';
       var lastMonth = '';
@@ -1252,8 +1199,7 @@
   }
 ];
     newsData.sort(function(a, b) { return b.date.localeCompare(a.date); });
-    renderFilterBar();
-    renderNewsGrid('全部');
+    renderNewsGrid();
   </script>
 </body>
 </html>
