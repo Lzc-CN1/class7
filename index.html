@@ -592,6 +592,80 @@
       transform: translateX(0);
     }
 
+    /* ========== 班级电脑壁纸 ========== */
+    .wallpaper-section {
+      margin-top: 56px;
+    }
+    .wallpaper-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallpaper-section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .wallpaper-section-sub {
+      font-size: 13px;
+      color: var(--text-light);
+      margin: 0 0 24px 4px;
+    }
+    .wallpaper-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+    }
+    .wallpaper-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #eef2f7;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(45, 106, 159, 0.08);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .wallpaper-item:hover {
+      box-shadow: 0 6px 22px rgba(45, 106, 159, 0.18);
+      transform: translateY(-3px);
+    }
+    .wallpaper-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .wallpaper-item:hover img {
+      transform: scale(1.04);
+    }
+    .wallpaper-item-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 600px) {
+      .wallpaper-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ========== 班级相册 ========== */
     #gallery { background: #f5f7fa; }
 
@@ -1220,6 +1294,26 @@
           <span class="culture-card-arrow">→</span>
         </a>
       </div>
+
+      <!-- 班级电脑壁纸 -->
+      <div class="wallpaper-section reveal">
+        <p class="wallpaper-section-title">班级电脑壁纸</p>
+        <p class="wallpaper-section-sub">历届七班专属桌面壁纸</p>
+        <div class="wallpaper-grid">
+          <div class="wallpaper-item" onclick="openWallpaper('assets/images/wallpaper1.png', '第一期壁纸')">
+            <img src="assets/images/wallpaper1.png" alt="七班壁纸 第一期" loading="lazy" />
+            <span class="wallpaper-item-label">第一期</span>
+          </div>
+          <div class="wallpaper-item" onclick="openWallpaper('assets/images/wallpaper2.png', '第二期壁纸')">
+            <img src="assets/images/wallpaper2.png" alt="七班壁纸 第二期" loading="lazy" />
+            <span class="wallpaper-item-label">第二期</span>
+          </div>
+          <div class="wallpaper-item" onclick="openWallpaper('assets/images/wallpaper3.png', '第三期壁纸')">
+            <img src="assets/images/wallpaper3.png" alt="七班壁纸 第三期" loading="lazy" />
+            <span class="wallpaper-item-label">第三期</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1523,6 +1617,18 @@
 
         startAuto();
       })();
+
+      /* ----- 班级壁纸预览 ----- */
+      function openWallpaper(src, label) {
+        var overlay = document.getElementById('modalOverlay');
+        var img = document.getElementById('modalImg');
+        var lbl = document.getElementById('modalLabel');
+        img.src = src;
+        img.alt = label;
+        lbl.textContent = label;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
 
       /* ----- 渲染成员卡片 ----- */
       var grid = document.getElementById('membersGrid');
