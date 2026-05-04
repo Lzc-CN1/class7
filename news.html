@@ -440,11 +440,6 @@
         var catClass = categoryMap[cats[0]] ? categoryMap[cats[0]].class : 'cat-other';
         var catLabel = categoryMap[cats[0]] ? categoryMap[cats[0]].label : cats[0];
 
-        // 筛选：如果选了某分类，只显示包含该分类的新闻
-        if (filter && filter !== '全部') {
-          if (cats.indexOf(filter) === -1) return;
-        }
-
         html += '<div class="news-card" data-idx="' + idx + '">';
         html += '  <div class="card-top">';
         html += '    <div class="card-date">' + news.folder + '</div>';
